@@ -15,7 +15,7 @@ public class RegisterServiceImpl extends BaseOpenmrsService implements RegisterS
     }
 
     public Register saveRegister(Register register) {
-        return dao.saveRegister(register)
+        return dao.saveRegister(register);
     }
 
     public void setDao(RegisterDAO dao) {
