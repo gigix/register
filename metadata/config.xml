@@ -3,26 +3,26 @@
 <module configVersion="1.1">
 
 	<!-- Base Module Properties -->
-	<id>${moduleId}</id>
-	<name>${moduleName}</name>
-	<version>${project.version}</version>
-	<package>${modulePackage}</package>
-	<author>Ben Wolfe</author>
+	<id>register</id>
+	<name>Register</name>
+	<version>0.0.1</version>
+	<package>org.openmrs.module.register</package>
+	<author>ThoughtWorks</author>
 	<description>
-			${project.description}
+			Create registers for the healthcare program 
 	</description>
 
-	<activator>${modulePackage}.RegisterModuleActivator</activator>
+	<activator>org.openmrs.module.register.RegisterModuleActivator</activator>
 
 	<!-- <updateURL>https://dev.openmrs.org/modules/download/${moduleId}/update.rdf</updateURL> -->
 	<!-- /Base Module Properties -->
 
-	<require_version>1.2.0.3400</require_version>
+	<require_version>1.6.0.11652</require_version>
 
 	<!-- Extensions -->
 	<extension>
 		<point>org.openmrs.admin.list</point>
-		<class>${modulePackage}.extension.html.AdminList</class>
+		<class>org.openmrs.module.register.extension.html.AdminList</class>
 	</extension>
 
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="metadata"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="src" path="web/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib-common/commons-log/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="lib-common/openmrs-api-1.7.0.15406-RC.jar"/>
+	<classpathentry kind="lib" path="lib-common/hibernate/hibernate325-mod.jar"/>
+	<classpathentry kind="lib" path="lib-common/web-openmrs-api-1.7.0.15406-RC.jar"/>
+	<classpathentry kind="lib" path="lib-common/junit/junit-4.8.1.jar"/>
+	<classpathentry kind="lib" path="lib-common/tests-openmrs-api-1.7.0.15406-RC.jar"/>
+	<classpathentry kind="lib" path="lib-common/spring-framework/org.springframework.test-3.0.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib-common/spring-framework/org.springframework.beans-3.0.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib-common/spring-framework/org.springframework.context-3.0.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib-common/spring-framework/org.springframework.core-3.0.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib-common/spring-framework/org.springframework.web-3.0.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib-common/spring-framework/org.springframework.web.servlet-3.0.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib-common/tomcat/servlet-api.jar"/>
+	<classpathentry kind="lib" path="lib-common/spring-framework/org.springframework.transaction-3.0.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib-common/junit/dbunit-2.4.4.jar"/>
+	<classpathentry kind="lib" path="lib-common/simple/simple-xml-1.6.1-mod.jar"/>
+	<classpathentry kind="lib" path="lib-common/mail/mail.jar"/>
+	<classpathentry kind="lib" path="lib-common/spring-framework/org.springframework.asm-3.0.2.RELEASE.jar"/>
+	<classpathentry kind="output" path="build"/>
+</classpath>
