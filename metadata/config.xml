@@ -12,7 +12,7 @@
 			Create registers for the healthcare program 
 	</description>
 
-	<activator>${modulePackage}.RegisterModuleActivator</activator>
+	<activator>org.openmrs.module.register.RegisterModuleActivator</activator>
 
 	<!-- <updateURL>https://dev.openmrs.org/modules/download/${moduleId}/update.rdf</updateURL> -->
 	<!-- /Base Module Properties -->
@@ -22,7 +22,7 @@
 	<!-- Extensions -->
 	<extension>
 		<point>org.openmrs.admin.list</point>
-		<class>${modulePackage}.extension.html.AdminList</class>
+		<class>org.openmrs.module.register.extension.html.AdminList</class>
 	</extension>
 
 
