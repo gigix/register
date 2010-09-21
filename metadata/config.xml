@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <module configVersion="1.1">
 
 	<!-- Base Module Properties -->
 	<id>register</id>
 	<name>Register</name>
-	<version>0.0.1</version>
-	<package>org.openmrs.module.register</package>
+	<version>1.0.0</version>
+	<package>org.openmrs.module.@MODULE_ID@</package>
 	<author>ThoughtWorks</author>
 	<description>
 			Create registers for the healthcare program 
 	</description>
 
-	<activator>org.openmrs.module.register.RegisterModuleActivator</activator>
-
-	<!-- <updateURL>https://dev.openmrs.org/modules/download/${moduleId}/update.rdf</updateURL> -->
-	<!-- /Base Module Properties -->
+	<activator>@MODULE_PACKAGE@.RegisterModuleActivator</activator>
 
 	<require_version>1.6.0.11652</require_version>
+
+	<require_modules>
+		<require_module>org.openmrs.module.htmlformentry</require_module>
+	</require_modules>
 
 	<!-- Extensions -->
 	<extension>
@@ -88,15 +88,11 @@
 		<lang>en</lang>
 		<file>messages.properties</file>
 	</messages>
-	<messages>
-		<lang>fr</lang>
-		<file>messages_fr.properties</file>
-	</messages>
-	<messages>
-		<lang>es</lang>
-		<file>messages_es.properties</file>
-	</messages>
 	<!-- /Internationalization -->
+    <mappingFiles>
+        RegisterType.hbm.xml
+    </mappingFiles>
+
     <mappingFiles>
         Register.hbm.xml
     </mappingFiles>

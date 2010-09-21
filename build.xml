@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!-- ********************************************************* -->
-<!-- ** Basic Module                                        ** -->
+<!-- ** Register Module                                     ** -->
 <!-- **	                                                    ** -->
-<!-- ** @author Ben Wolfe                                   ** -->
+<!-- ** @author ThoughtWorks                                ** -->
 <!-- ** @version 1.0                                        ** -->
 <!-- ********************************************************* -->
-<project name="BasicModule" default="package-module">
+<project name="RegisterModule" default="package-module">
 		
 	<!-- *********************************************************** -->
 	<!-- **                     TARGETS                           ** -->

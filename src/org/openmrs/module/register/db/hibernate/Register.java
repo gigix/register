@@ -1,20 +1,64 @@
 package org.openmrs.module.register.db.hibernate;
 
-import org.openmrs.BaseOpenmrsData;
+import java.util.Date;
 
-public class Register extends BaseOpenmrsData{
-    private Integer id;
-    private String name;
+import org.openmrs.BaseOpenmrsMetadata;
+import org.openmrs.module.htmlformentry.HtmlForm;
 
-    public Integer getId() {
-        return id;
-    }
+public class Register extends BaseOpenmrsMetadata {
+	private Integer registerId;
+	private Date startDate;
+	private Date endDate;
+	private RegisterType registerType;
+	private HtmlForm htmlForm;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Override
+	public Integer getId() {
+		return getRegisterId();
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	@Override
+	public void setId(Integer registerId) {
+		setRegisterId(registerId);
+	}
+
+	public Integer getRegisterId() {
+		return registerId;
+	}
+
+	public void setRegisterId(Integer registerId) {
+		this.registerId = registerId;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public RegisterType getRegisterType() {
+		return registerType;
+	}
+
+	public void setRegisterType(RegisterType registerType) {
+		this.registerType = registerType;
+	}
+
+	public HtmlForm getHtmlForm() {
+		return htmlForm;
+	}
+
+	public void setHtmlForm(HtmlForm htmlForm) {
+		this.htmlForm = htmlForm;
+	}
 }
