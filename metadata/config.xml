@@ -89,13 +89,9 @@
 		<file>messages.properties</file>
 	</messages>
 	<!-- /Internationalization -->
-    <mappingFiles>
+	<mappingFiles>
+        Register.hbm.xml
         RegisterType.hbm.xml
     </mappingFiles>
-
-    <mappingFiles>
-        Register.hbm.xml
-    </mappingFiles>
-
 </module>
 

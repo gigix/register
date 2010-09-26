@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+     <registers register_id="111" start_date="2010-09-25 00:00:00.0" end_date="2010-09-27 00:00:00.0" name="Sample Visit register" register_type_id="1" html_form_id="1" creator="1" date_created="2010-09-22 00:00:00.0" retired="false" uuid="f08ba64b-ea57-4a41-b33c-9dfc59b0c60a"/> 
+</dataset>

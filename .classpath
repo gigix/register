@@ -6,11 +6,8 @@
 	<classpathentry kind="src" path="web/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib-common/commons-log/commons-logging-1.0.4.jar"/>
-	<classpathentry kind="lib" path="lib-common/openmrs-api-1.7.0.15406-RC.jar"/>
 	<classpathentry kind="lib" path="lib-common/hibernate/hibernate325-mod.jar"/>
-	<classpathentry kind="lib" path="lib-common/web-openmrs-api-1.7.0.15406-RC.jar"/>
 	<classpathentry kind="lib" path="lib-common/junit/junit-4.8.1.jar"/>
-	<classpathentry kind="lib" path="lib-common/tests-openmrs-api-1.7.0.15406-RC.jar"/>
 	<classpathentry kind="lib" path="lib-common/spring-framework/org.springframework.test-3.0.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib-common/spring-framework/org.springframework.beans-3.0.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib-common/spring-framework/org.springframework.context-3.0.2.RELEASE.jar"/>
@@ -23,5 +20,31 @@
 	<classpathentry kind="lib" path="lib-common/simple/simple-xml-1.6.1-mod.jar"/>
 	<classpathentry kind="lib" path="lib-common/mail/mail.jar"/>
 	<classpathentry kind="lib" path="lib-common/spring-framework/org.springframework.asm-3.0.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib-common/htmlformentrymodule/htmlformentry-1.6.7.jar"/>
+	<classpathentry kind="lib" path="lib-common/tomcat/jsp-api.jar"/>
+	<classpathentry kind="lib" path="lib-common/dwr/dwr-205.jar"/>
+	<classpathentry kind="lib" path="lib-common/jstl/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="lib-common/spring-framework/org.springframework.orm-3.0.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib-common/antlr/antlr_2.7.6.jar"/>
+	<classpathentry kind="lib" path="lib-common/liquibase/liquibase-1.9.4-mod.jar"/>
+	<classpathentry kind="lib" path="lib-common/jakarta-log4j/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="lib-common/spring-framework/org.springframework.expression-3.0.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib-common/spring-framework/spring-2.5.1.jar"/>
+	<classpathentry kind="lib" path="lib-common/hl7api/hapi-0.5.jar"/>
+	<classpathentry kind="lib" path="lib-common/jta/jta.jar"/>
+	<classpathentry kind="lib" path="lib-common/dom4j/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib-common/commons-collections/commons-collections-3.2.jar"/>
+	<classpathentry kind="lib" path="lib-common/junit/hsqldb-1.8.0.10.jar"/>
+	<classpathentry kind="lib" path="lib-common/c3p0/c3p0-0.9.1.jar"/>
+	<classpathentry kind="lib" path="lib-common/ehcache/ehcache-1.2.4.jar"/>
+	<classpathentry kind="lib" path="lib-common/cglib/cglib-nodep-2.2.jar"/>
+	<classpathentry kind="lib" path="lib-common/xerces/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="lib-common/slf4j/slf4j-api-1.5.6.jar"/>
+	<classpathentry kind="lib" path="lib-common/slf4j/slf4j-log4j12-1.5.6.jar"/>
+	<classpathentry kind="lib" path="lib-common/commons-lang/commons-lang-2.4.jar"/>
+	<classpathentry kind="lib" path="lib-common/openmrs-api-1.8.0-SNAPSHOT-tests.jar"/>
+	<classpathentry kind="lib" path="lib-common/openmrs-api-1.8.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib-common/openmrs-web-1.8.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib-common/h2database/h2-1.2.135.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>

@@ -23,4 +23,9 @@ public class RegisterType extends BaseOpenmrsMetadata {
 		setRegisterTypeId(registerTypeId);
 	}
 
+	@Override
+	public String toString() {
+		return "RegisterType [RegisterTypeId=" + registerTypeId + ", Name=" + getName() + ", Description=" + getDescription()
+				+ ", Retired=" + getRetired() + "]";
+	}
 }

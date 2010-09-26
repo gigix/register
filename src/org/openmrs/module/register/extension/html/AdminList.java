@@ -13,11 +13,11 @@
  */
 package org.openmrs.module.register.extension.html;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.openmrs.module.Extension;
 import org.openmrs.module.web.extension.AdministrationSectionExt;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class AdminList extends AdministrationSectionExt {
 
@@ -40,10 +40,10 @@ public class AdminList extends AdministrationSectionExt {
 	 */
 	public Map<String, String> getLinks() {
 
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, String> map = new LinkedHashMap<String, String>();
 
-		map.put("module/register/registerLink.list", "register.manage.link");
-		map.put("module/register/registerLink.form", "register.create.link");
+		map.put("module/register/createRegister.form", "register.create.link");
+		map.put("module/register/manageRegister.list", "register.manage.link");		
 		
 		return map;
 	}
