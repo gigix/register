@@ -23,7 +23,11 @@ public interface RegisterService {
 
 	public Register getRegister(Integer registerId);
 
-    Register saveRegister(Register register);
+    public Register saveRegister(Register register);
+    
+    public void deleteRegister(Integer registerId);
+    
+    public void deleteRegister(Register register);
     
     public List<RegisterType> getRegisterTypes();
     

@@ -47,7 +47,7 @@
 				</tr>
 				<tr>
 					<td>
-						<spring:message code="register.types" />
+						<spring:message code="register.type" />
 					</td>
 					<td>
 						<spring:bind path="commandMap.map['register'].registerType">
@@ -71,7 +71,7 @@
 				</tr>
 				<tr>
 					<td>
-						<spring:message code="register.htmlform.name" />
+						<spring:message code="register.htmlform" />
 					</td>
 					<td>
 						<spring:bind path="commandMap.map['register'].htmlForm">

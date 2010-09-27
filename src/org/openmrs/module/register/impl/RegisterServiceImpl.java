@@ -40,6 +40,13 @@ public class RegisterServiceImpl extends BaseOpenmrsService implements RegisterS
         return dao.saveRegister(register);
     }
 
+    public void deleteRegister(Integer registerId) {
+    	deleteRegister(getRegister(registerId));
+	}
+    public void deleteRegister(Register register) {
+		dao.deleteRegister(register);		
+	}
+    
 	public List<RegisterType> getRegisterTypes() {
 		return dao.getRegisterTypes();
 	}

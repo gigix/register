@@ -73,7 +73,6 @@ public class CreateRegisterFormController {
 			return CREATE_REGISTER_FORM_VIEW;
 		}
 		Register register = (Register) commandMap.getMap().get("register");
-		System.out.println(register);
 		RegisterService registerService = Context.getService(RegisterService.class);
 		register = registerService.saveRegister(register);
 		

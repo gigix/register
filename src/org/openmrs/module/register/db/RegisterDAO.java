@@ -25,6 +25,8 @@ public interface RegisterDAO {
 
     Register saveRegister(Register register);
 
+    void deleteRegister(Register register);
+    
 	List<RegisterType> getRegisterTypes();
 
 	RegisterType getRegisterType(Integer registerTypeId);

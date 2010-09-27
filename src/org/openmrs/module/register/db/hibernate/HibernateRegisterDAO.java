@@ -34,7 +34,7 @@ public class HibernateRegisterDAO implements RegisterDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Register> getRegisters() {
-		Query query = getCurrentSession().createQuery("from Register register orderby date_created desc");
+		Query query = getCurrentSession().createQuery("from Register register order by date_changed desc, date_created desc");
 		return query.list();
 	}
 
@@ -45,6 +45,10 @@ public class HibernateRegisterDAO implements RegisterDAO {
 	public Register saveRegister(Register register) {
 		getCurrentSession().saveOrUpdate(register);
 		return register;
+	}
+	
+	public void deleteRegister(Register register) {
+		getCurrentSession().delete(register);
 	}
 
 	@SuppressWarnings("unchecked")
