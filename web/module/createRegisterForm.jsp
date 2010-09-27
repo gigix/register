@@ -1,11 +1,13 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 
+<openmrs:require privilege="Manage Registers" otherwise="/login.htm" redirect="/module/register/creatRegister.form" />
+
 <%@ include file="/WEB-INF/template/header.jsp"%>
 <%@ include file="localHeader.jsp"%>
 
 <p>
 	<h2>
-		<spring:message code="register.heading.title" />
+		<spring:message code="register.new.heading.title" />
 	</h2>
 </p>
 
@@ -65,8 +67,6 @@
 								<span class="error">${status.errorMessage}</span>
 							</c:if>
 						</spring:bind>
-
-
 					</td>
 				</tr>
 				<tr>
@@ -90,16 +90,14 @@
 								<span class="error">${status.errorMessage}</span>
 							</c:if>
 						</spring:bind>
-
 					</td>
 				</tr>
 			</table>
 			<br />
-			<input type="submit"
-				value='<spring:message code="register.create.button"/>' />
+			<input type="submit" value='<spring:message code="register.create.button"/>' />
 			&nbsp;
 			<input type="button" value='<spring:message code="general.cancel"/>'
-				onclick="document.location='${pageContext.request.contextPath}/admin'">
+				onclick="document.location='${pageContext.request.contextPath}/module/register/manageRegister.list'">
 
 		</form>
 </div>

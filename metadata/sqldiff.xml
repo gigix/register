@@ -78,10 +78,17 @@
 			UPDATE registers SET uuid = UUID() WHERE uuid is null;
 
 			insert into `register_type` (`register_type_id`, `name`, `description`,	`creator`, `date_created`, `retired`, `uuid`) 
-								 values (NULL, 'View Register', 'View Register', '1', '2010-09-25', '0', UUID());
+								 values (NULL, 'Visit Register', 'Visit Register', '1', '2010-09-25', '0', UUID());
 								 
 			insert into `register_type` (`register_type_id`, `name`, `description`,	`creator`, `date_created`, `retired`, `uuid`) 
 								 values (NULL, 'Program Register', 'Program Register', '1', '2010-09-25', '0', UUID());
+								 
+			
+			insert into `privilege` (`privilege`, `description`, `uuid`) values ('View Registers', 'Able to view Register entries', UUID());
+
+			insert into `privilege` (`privilege`, `description`, `uuid`) values ('Manage Registers', 'Able to add/edit/delete Register entries', UUID());
+
+			
 		</sql>
 	</diff>
 </sqldiff>

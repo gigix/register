@@ -47,7 +47,7 @@ public class CreateRegisterFormController {
 
 	/** Success form view name */
 	private final String CREATE_REGISTER_FORM_VIEW = "/module/register/createRegisterForm";
-	private final String VIEW_MANAGE_REGISTER_FORM_VIEW = "/module/register/manageRegisterList";
+	private final String MANAGE_REGISTER_LIST_VIEW = "/module/register/manageRegister.list";
 
 	/**
 	 * Initially called after the formBackingObject method to get the landing
@@ -78,7 +78,7 @@ public class CreateRegisterFormController {
 		register = registerService.saveRegister(register);
 		
 		httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "register.saved");
-		return VIEW_MANAGE_REGISTER_FORM_VIEW;
+		return "redirect:" + MANAGE_REGISTER_LIST_VIEW;
 	}
 	
 	private void validate(BindingResult errors){
