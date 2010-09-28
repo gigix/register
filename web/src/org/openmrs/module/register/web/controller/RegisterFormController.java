@@ -13,8 +13,10 @@
  */
 package org.openmrs.module.register.web.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
@@ -39,16 +41,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping(value = "module/register/createRegister.form")
-public class CreateRegisterFormController {
+@RequestMapping(value = "module/register/register.form")
+public class RegisterFormController {
 
 	/** Logger for this class and subclasses */
 	protected final Log log = LogFactory.getLog(getClass());
 
-	/** Success form view name */
-	private final String CREATE_REGISTER_FORM_VIEW = "/module/register/createRegisterForm";
-	private final String MANAGE_REGISTER_LIST_VIEW = "/module/register/manageRegisterList";
+	private static final String MANAGE_REGISTER_LIST_VIEW = "/module/register/manageRegisterList";
 
+	private static final String CREATE_REGISTER_FORM_VIEW = "/module/register/registerForm";
+
+	private static final String MANAGE_REGISTER_LIST = "manageRegister.list";
+	
 	/**
 	 * Initially called after the formBackingObject method to get the landing
 	 * form name
@@ -67,23 +71,33 @@ public class CreateRegisterFormController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String onSubmit(HttpSession httpSession, @ModelAttribute("commandMap") CommandMap commandMap, BindingResult errors) {
-		validate(errors);
+	public String onSubmit(HttpServletResponse response, HttpSession httpSession, @ModelAttribute("commandMap") CommandMap commandMap, BindingResult errors) {
+		Register paramRegister = (Register) commandMap.getMap().get("register");
+		validate(paramRegister, errors);
+		
 		if (errors.hasErrors()) {
 			return CREATE_REGISTER_FORM_VIEW;
 		}
-		Register register = (Register) commandMap.getMap().get("register");
 		RegisterService registerService = Context.getService(RegisterService.class);
-		register = registerService.saveRegister(register);
+		paramRegister = registerService.saveRegister(paramRegister);
 		
 		httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "register.saved");
+		
+		try {
+			response.sendRedirect(MANAGE_REGISTER_LIST);
+		} catch (IOException e) {			
+		}
+		
 		return MANAGE_REGISTER_LIST_VIEW;
 	}
 	
-	private void validate(BindingResult errors){
+	private void validate(Register register, BindingResult errors){
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "map['register'].name", "error.null");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "map['register'].registerType", "error.null");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "map['register'].htmlForm", "error.null");
+		if(register.getRetired()){
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "map['register'].retireReason", "error.null");
+		}
 	}
 
 	@ModelAttribute("commandMap")

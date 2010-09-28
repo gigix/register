@@ -15,7 +15,7 @@
 </p>
 
 <openmrs:hasPrivilege privilege="Manage Registers">
-	<a href="createRegister.form"><spring:message code="register.create.link"/></a>	
+	<a href="register.form"><spring:message code="register.create.link"/></a>	
 </openmrs:hasPrivilege>
 
 <br />
@@ -43,7 +43,7 @@
 			<tr <c:if test="${register.retired}">class="retired"</c:if>>
 				<td valign="top"><input type="checkbox" name="registerId" value="${register.registerId}"></td>
 				<td valign="top">
-					<a href="createRegister.form?registerId=${register.registerId}">${register.name}</a> (${register.registerId})
+					<a href="register.form?registerId=${register.registerId}">${register.name}</a> (${register.registerId})
 				</td>
 				<td valign="top">${register.description}</td>
 				<td valign="top">${register.registerType.name}</td>

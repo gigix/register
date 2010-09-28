@@ -15,6 +15,7 @@ package org.openmrs.module.register.web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
@@ -39,9 +40,9 @@ public class ManageRegisterListController {
 
 	/** Logger for this class and subclasses */
 	protected final Log log = LogFactory.getLog(getClass());
-
+	
 	/** Success form view name */
-	private final String MANAGE_REGISTER_LIST_VIEW = "/module/register/manageRegisterList";
+	private static final String MANAGE_REGISTER_LIST_VIEW = "/module/register/manageRegisterList";
 
 	/**
 	 * Initially called after the formBackingObject method to get the landing
@@ -50,7 +51,7 @@ public class ManageRegisterListController {
 	 * @return String form view name
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public String showForm() {
+	public String showForm() { 
 		return MANAGE_REGISTER_LIST_VIEW;
 	}
 
@@ -62,7 +63,7 @@ public class ManageRegisterListController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String onSubmit(WebRequest request, HttpSession httpSession, @ModelAttribute("registers") List<Register> registers, BindingResult errors) {
+	public String onSubmit(WebRequest request,HttpServletResponse response, HttpSession httpSession, @ModelAttribute("registers") List<Register> registers, BindingResult errors)  {
 		MessageSourceService mss = Context.getMessageSourceService();
 
 		String success = "";
@@ -86,7 +87,8 @@ public class ManageRegisterListController {
 					error = handleRegisterIntegrityException(e, error, notDeleted);
 				}
 			}
-		} else {
+		} 
+		else {
 			httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "register.must.select");
 		}
 
