@@ -2,6 +2,8 @@
 
 <openmrs:require privilege="Manage Registers" otherwise="/login.htm" redirect="/module/register/creatRegister.form" />
 
+<spring:message var="pageTitle" code="register.page.title" scope="page"/>
+
 <%@ include file="/WEB-INF/template/header.jsp"%>
 <%@ include file="localHeader.jsp"%>
 
