@@ -13,21 +13,12 @@
  */
 package org.openmrs.module.register.web.controller;
 
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.api.context.Context;
-import org.openmrs.module.htmlformentry.HtmlForm;
-import org.openmrs.module.htmlformentry.HtmlFormEntryService;
-import org.openmrs.module.register.RegisterService;
-import org.openmrs.module.register.db.hibernate.Register;
-import org.openmrs.module.register.db.hibernate.RegisterType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value = "module/register/manageRegister.list")
