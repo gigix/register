@@ -43,6 +43,7 @@ public class ManageRegisterListController {
 	
 	/** Success form view name */
 	private static final String MANAGE_REGISTER_LIST_VIEW = "/module/register/manageRegisterList";
+	private static final String MANAGE_REGISTER_LIST = "/module/register/manageRegister.list";
 
 	/**
 	 * Initially called after the formBackingObject method to get the landing
@@ -57,6 +58,10 @@ public class ManageRegisterListController {
 
 	@ModelAttribute("registers")
 	protected List<Register> formBackingObject() throws Exception {
+		return getRegisters();
+	}
+
+	private List<Register> getRegisters() {
 		RegisterService registerService = (RegisterService) Context.getService(RegisterService.class);
 
 		return registerService.getRegisters();
@@ -97,7 +102,7 @@ public class ManageRegisterListController {
 		if (!error.equals(""))
 			httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, error);
 
-		return MANAGE_REGISTER_LIST_VIEW;
+		return "redirect:" + MANAGE_REGISTER_LIST;
 	}
 
 	/**

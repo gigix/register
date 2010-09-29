@@ -13,7 +13,6 @@
  */
 package org.openmrs.module.register.web.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -47,11 +46,10 @@ public class RegisterFormController {
 	/** Logger for this class and subclasses */
 	protected final Log log = LogFactory.getLog(getClass());
 
-	private static final String MANAGE_REGISTER_LIST_VIEW = "/module/register/manageRegisterList";
+	private static final String MANAGE_REGISTER_LIST = "/module/register/manageRegister.list";
 
-	private static final String CREATE_REGISTER_FORM_VIEW = "/module/register/registerForm";
+	private static final String REGISTER_FORM_VIEW = "/module/register/registerForm";
 
-	private static final String MANAGE_REGISTER_LIST = "manageRegister.list";
 	
 	/**
 	 * Initially called after the formBackingObject method to get the landing
@@ -61,7 +59,7 @@ public class RegisterFormController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String showForm() {
-		return CREATE_REGISTER_FORM_VIEW;
+		return REGISTER_FORM_VIEW;
 	}
 
 	@InitBinder
@@ -76,19 +74,15 @@ public class RegisterFormController {
 		validate(paramRegister, errors);
 		
 		if (errors.hasErrors()) {
-			return CREATE_REGISTER_FORM_VIEW;
+			return REGISTER_FORM_VIEW;
 		}
 		RegisterService registerService = Context.getService(RegisterService.class);
 		paramRegister = registerService.saveRegister(paramRegister);
 		
 		httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "register.saved");
+
 		
-		try {
-			response.sendRedirect(MANAGE_REGISTER_LIST);
-		} catch (IOException e) {			
-		}
-		
-		return MANAGE_REGISTER_LIST_VIEW;
+		return "redirect:" + MANAGE_REGISTER_LIST;
 	}
 	
 	private void validate(Register register, BindingResult errors){
