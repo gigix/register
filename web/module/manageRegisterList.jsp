@@ -41,9 +41,19 @@
 		</tr>
 		<c:forEach var="register" items="${registers}">
 			<tr <c:if test="${register.retired}">class="retired"</c:if>>
-				<td valign="top"><input type="checkbox" name="registerId" value="${register.registerId}"></td>
 				<td valign="top">
-					<a href="register.form?registerId=${register.registerId}">${register.name}</a> (${register.registerId})
+					<openmrs:hasPrivilege privilege="Manage Registers">
+						<input type="checkbox" name="registerId" value="${register.registerId}">
+					</openmrs:hasPrivilege>
+				</td>
+				<td valign="top">
+					<openmrs:hasPrivilege privilege="Manage Registers">
+							<a href="register.form?registerId=${register.registerId}">${register.name}</a> 
+					</openmrs:hasPrivilege>
+					<openmrs:hasPrivilege privilege="Manage Registers" inverse="true">
+						${register.name}
+					</openmrs:hasPrivilege>
+					(${register.registerId})
 				</td>
 				<td valign="top">${register.description}</td>
 				<td valign="top">${register.registerType.name}</td>
@@ -52,7 +62,9 @@
 		</c:forEach>
 	</table>
 	<br/><br/>
-	<input type="submit" value="<spring:message code="register.delete"/>" name="action">
+	<openmrs:hasPrivilege privilege="Manage Registers">
+		<input type="submit" value="<spring:message code="register.delete"/>" name="action">
+	</openmrs:hasPrivilege>
 </form>
 
 <script type="text/javascript">
