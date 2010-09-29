@@ -21,6 +21,10 @@
 
 	<!-- Extensions -->
 	<extension>
+		<point>org.openmrs.admin.list</point>
+		<class>org.openmrs.module.register.extension.html.RegisterAdminList</class>
+	</extension>
+	<extension>
 		<point>org.openmrs.gutter.tools</point>
 		<class>org.openmrs.module.register.extension.html.NavigationLinkExt</class>
 	</extension>

@@ -43,7 +43,7 @@
 					<td>
 						<spring:bind path="commandMap.map['register'].name">
 							<input type="text" name="${status.expression}"
-								id="${status.expression}" value="${status.value}" />
+								id="${status.expression}" value="${status.value}" size="25"/>
 							<c:if test="${status.errorMessage != ''}">
 								<span class="error">${status.errorMessage}</span>
 							</c:if>
@@ -56,8 +56,8 @@
 					</th>
 					<td>
 						<spring:bind path="commandMap.map['register'].description">
-							<input type="text" name="${status.expression}"
-								id="${status.expression}" value="${status.value}" />
+							<textarea name="${status.expression}"
+								id="${status.expression}" cols="25">${status.value}</textarea>
 							<c:if test="${status.errorMessage != ''}">
 								<span class="error">${status.errorMessage}</span>
 							</c:if>
@@ -66,7 +66,7 @@
 				</tr>
 				<tr>
 					<th>
-						<spring:message code="register.type" />
+						<spring:message code="register.registerType" />
 					</th>
 					<td>
 						<spring:bind path="commandMap.map['register'].registerType">
