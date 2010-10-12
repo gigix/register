@@ -26,11 +26,15 @@ public interface RegisterService {
 	@Transactional(readOnly = true)
 	@Authorized( { RegisterConstant.VIEW_REGISTERS })
 	public List<Register> getRegisters();
+	
+	
+	@Transactional(readOnly = true)
+	public List<Register> getActiveRegisters();
 
 	@Transactional(readOnly = true)
 	@Authorized( { RegisterConstant.VIEW_REGISTERS })
 	public Register getRegister(Integer registerId);
-
+	
 	@Transactional
 	@Authorized( { RegisterConstant.MANAGE_REGISTERS })
 	public Register saveRegister(Register register);

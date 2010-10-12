@@ -31,6 +31,10 @@ public class RegisterServiceImpl extends BaseOpenmrsService implements RegisterS
     public List<Register> getRegisters() {
         return dao.getRegisters();
     }
+    
+    public List<Register> getActiveRegisters() {
+        return dao.getActiveRegisters();
+    }
 
 	public Register getRegister(Integer registerId) {
 		return dao.getRegister(registerId);

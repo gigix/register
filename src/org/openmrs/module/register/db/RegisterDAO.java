@@ -30,4 +30,6 @@ public interface RegisterDAO {
 	List<RegisterType> getRegisterTypes();
 
 	RegisterType getRegisterType(Integer registerTypeId);
+
+	List<Register> getActiveRegisters();
 }
