@@ -14,6 +14,7 @@
 package org.openmrs.module.register;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.openmrs.Encounter;
 import org.openmrs.annotation.Authorized;
 
 import org.openmrs.module.register.db.hibernate.Register;
@@ -27,9 +28,9 @@ public interface RegisterService {
 	@Authorized( { RegisterConstant.VIEW_REGISTERS })
 	public List<Register> getRegisters();
 	
-	
 	@Transactional(readOnly = true)
-	public List<Register> getActiveRegisters();
+	@Authorized( { RegisterConstant.VIEW_REGISTERS })	
+    List<Register> getRegisters(boolean includeRetired);
 
 	@Transactional(readOnly = true)
 	@Authorized( { RegisterConstant.VIEW_REGISTERS })
@@ -54,4 +55,8 @@ public interface RegisterService {
 	@Transactional(readOnly = true)
 	@Authorized( { RegisterConstant.VIEW_REGISTERS })
 	public RegisterType getRegisterType(Integer registerTypeId);
+	
+	@Transactional(readOnly = true)
+	public List<Encounter> getEncountersForRegisterByLocation(Integer registerId ,Integer locationId);
+
 }

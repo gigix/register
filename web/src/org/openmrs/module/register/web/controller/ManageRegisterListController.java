@@ -64,7 +64,7 @@ public class ManageRegisterListController {
 	private List<Register> getRegisters() {
 		RegisterService registerService = (RegisterService) Context.getService(RegisterService.class);
 
-		return registerService.getRegisters();
+		return registerService.getRegisters(true);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)

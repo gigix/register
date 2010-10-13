@@ -16,7 +16,6 @@ package org.openmrs.module.register.db.hibernate;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Restrictions;
@@ -34,15 +33,9 @@ public class HibernateRegisterDAO implements RegisterDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Register> getRegisters() {
-		Query query = getCurrentSession().createQuery("from Register register");
-		return query.list();
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Register> getActiveRegisters() {
+	public List<Register> getRegisters(boolean includeRetired) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Register.class);
-		criteria.add(Restrictions.eq("retired", false));
+		criteria.add(Restrictions.eq("retired", includeRetired));
 		return criteria.list();
 	}
 
