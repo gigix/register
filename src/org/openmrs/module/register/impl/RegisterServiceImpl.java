@@ -13,6 +13,10 @@
  */
 package org.openmrs.module.register.impl;
 
+import org.openmrs.Encounter;
+import org.openmrs.Form;
+import org.openmrs.api.EncounterService;
+import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.register.RegisterService;
 import org.openmrs.module.register.db.hibernate.Register;
@@ -29,17 +33,17 @@ public class RegisterServiceImpl extends BaseOpenmrsService implements RegisterS
     }
 
     public List<Register> getRegisters() {
-        return dao.getRegisters();
+        return getRegisters(false);
     }
     
-    public List<Register> getActiveRegisters() {
-        return dao.getActiveRegisters();
+    public List<Register> getRegisters(boolean includeRetired) {
+        return dao.getRegisters(includeRetired);
     }
 
 	public Register getRegister(Integer registerId) {
 		return dao.getRegister(registerId);
 	}
-
+ 
     public Register saveRegister(Register register) {
         return dao.saveRegister(register);
     }
@@ -58,4 +62,15 @@ public class RegisterServiceImpl extends BaseOpenmrsService implements RegisterS
 	public RegisterType getRegisterType(Integer id) {
 		return dao.getRegisterType(id);
 	}
+
+	@Override
+	public List<Encounter> getEncountersForRegisterByLocation(
+			Integer registerId, Integer locationId) {
+		EncounterService encounterService = Context.getEncounterService();
+		Register register = getRegister(registerId);
+		Form basicForm = register.getHtmlForm().getForm();
+		return encounterService.getEncountersByFormIdAndLocation(basicForm.getFormId(), locationId);
+	}
+	
+	
 }

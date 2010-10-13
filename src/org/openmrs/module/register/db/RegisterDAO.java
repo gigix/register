@@ -13,13 +13,17 @@
  */
 package org.openmrs.module.register.db;
 
+import org.openmrs.Encounter;
+import org.openmrs.Form;
+import org.openmrs.Location;
 import org.openmrs.module.register.db.hibernate.Register;
 import org.openmrs.module.register.db.hibernate.RegisterType;
 
 import java.util.List;
 
 public interface RegisterDAO {
-    List<Register> getRegisters();
+    
+    List<Register> getRegisters(boolean includeRetired);
 
 	Register getRegister(Integer registerId);
 
@@ -31,5 +35,5 @@ public interface RegisterDAO {
 
 	RegisterType getRegisterType(Integer registerTypeId);
 
-	List<Register> getActiveRegisters();
+	//List<Encounter> getEncounters(Form form, Location location, boolean includeVoided);
 }

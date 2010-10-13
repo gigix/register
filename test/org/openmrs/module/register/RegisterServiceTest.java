@@ -44,7 +44,7 @@ public class RegisterServiceTest extends BaseModuleContextSensitiveTest {
     @Test
     public void shouldReturnAListOfRegisters() {
         RegisterService service = Context.getService(RegisterService.class);
-        List<Register> registers = service.getRegisters();
+        List<Register> registers = service.getRegisters(true);
         assertEquals(registers.size(), 1);
     }
 
