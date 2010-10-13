@@ -16,6 +16,7 @@ package org.openmrs.module.register.impl;
 import org.openmrs.Encounter;
 import org.openmrs.Form;
 import org.openmrs.api.EncounterService;
+import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.register.RegisterService;
@@ -67,9 +68,10 @@ public class RegisterServiceImpl extends BaseOpenmrsService implements RegisterS
 	public List<Encounter> getEncountersForRegisterByLocation(
 			Integer registerId, Integer locationId) {
 		EncounterService encounterService = Context.getEncounterService();
+		LocationService locationService=Context.getLocationService();
 		Register register = getRegister(registerId);
-		Form basicForm = register.getHtmlForm().getForm();
-		return encounterService.getEncountersByFormIdAndLocation(basicForm.getFormId(), locationId);
+		Form form = register.getHtmlForm().getForm();
+		return encounterService.getEncounters(form,locationService.getLocation(locationId));
 	}
 	
 	
