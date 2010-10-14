@@ -29,11 +29,15 @@
 								<option value="">
 									<spring:message code="register.location.all" />
 								</option>
-								<c:forEach var="location" items="${ locations }">
+								<c:forEach var="location" items="${commandMap.map['locations'] }">
 									<option value="${ location.locationId }">${ location.name }</option>
 								</c:forEach>
 							</select>
 							
+						</td>
+						<td>
+						<input type="button" value='<spring:message code="register.addPatient" />'
+						onclick="document.location='${ pageContext.request.contextPath }/module/htmlformentry/patientHtmlFormEntry.form?htmlFormId=${commandMap.map['htmlFormId'] }&mode=Enter'">
 						</td>
 					</tr>
 				</table>
