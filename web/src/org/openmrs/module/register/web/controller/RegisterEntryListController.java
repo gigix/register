@@ -20,11 +20,6 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.Location;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.htmlformentry.HtmlForm;
-import org.openmrs.module.htmlformentry.HtmlFormEntryService;
-import org.openmrs.module.register.RegisterService;
-import org.openmrs.module.register.db.hibernate.Register;
-import org.openmrs.module.register.db.hibernate.RegisterType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,7 +56,6 @@ public class RegisterEntryListController {
 	protected CommandMap formBackingObject(@RequestParam(required=false, value="registerId") Integer registerId,@RequestParam(required=false, value="htmlFormId") Integer htmlFormId) throws Exception {
 			CommandMap commandMap = new CommandMap();
 			commandMap.addToMap("registerId", registerId);
-			commandMap.addToMap("htmlFormId", htmlFormId);
 			commandMap.addToMap("locations", getLocations());
 		
 		return commandMap;
@@ -71,6 +65,8 @@ public class RegisterEntryListController {
 		LocationService locationService = (LocationService) Context.getService(LocationService.class);
 		return locationService.getAllLocations();
 	}
+	
+	
 
 
 	

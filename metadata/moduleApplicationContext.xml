@@ -51,5 +51,22 @@
 				</bean>
 			</list>
 		</property>
-	</bean>    
+	</bean> 
+	   
+	<bean id="registerUrlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    	<property name="order"><value>1</value></property>
+    	<property name="mappings">
+            <props>
+				<prop key="/module/register/registerHtmlForm.form">RegisterHtmlFormController</prop>
+	    	</props>
+		</property>
+    </bean>
+    
+    <bean id="RegisterHtmlFormController" class="org.openmrs.module.register.web.controller.RegisterHtmlFormController">
+        <property name="sessionForm"><value>false</value></property>
+        <property name="commandName"><value>command</value></property>
+        <property name="formView"><value>/module/register/registerHtmlForm</value></property>
+        <property name="closeDialogView"><value>/module/htmlformentry/closeDialog</value></property>
+        <property name="successView"><value>registerHtmlForm.form</value></property>
+    </bean>
 </beans>

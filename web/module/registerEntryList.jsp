@@ -13,6 +13,11 @@
 </p>
 
 
+
+
+
+<a href="${ pageContext.request.contextPath }/module/register/registerHtmlForm.form?registerId=${commandMap.map['registerId']}&mode=Enter"><spring:message code="register.addPatient" /></a> 
+
 <br />
 <br />
 
@@ -34,10 +39,6 @@
 								</c:forEach>
 							</select>
 							
-						</td>
-						<td>
-						<input type="button" value='<spring:message code="register.addPatient" />'
-						onclick="document.location='${ pageContext.request.contextPath }/module/htmlformentry/patientHtmlFormEntry.form?htmlFormId=${commandMap.map['htmlFormId'] }&mode=Enter'">
 						</td>
 					</tr>
 				</table>
