@@ -35,7 +35,9 @@ public class HibernateRegisterDAO implements RegisterDAO {
 	@SuppressWarnings("unchecked")
 	public List<Register> getRegisters(boolean includeRetired) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Register.class);
-		criteria.add(Restrictions.eq("retired", includeRetired));
+		if(!includeRetired){
+			criteria.add(Restrictions.eq("retired", false));
+		}
 		return criteria.list();
 	}
 
