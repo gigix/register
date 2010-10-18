@@ -20,6 +20,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.Location;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.register.RegisterService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,10 +54,11 @@ public class RegisterEntryListController {
 	}*/
 	
 	@ModelAttribute("commandMap")
-	protected CommandMap formBackingObject(@RequestParam(required=false, value="registerId") Integer registerId,@RequestParam(required=false, value="htmlFormId") Integer htmlFormId) throws Exception {
+	protected CommandMap formBackingObject(@RequestParam(required=true, value="registerId") Integer registerId,@RequestParam(required=false, value="htmlFormId") Integer htmlFormId) throws Exception {
+			RegisterService registerService = Context.getService(RegisterService.class);
 			CommandMap commandMap = new CommandMap();
-			commandMap.addToMap("registerId", registerId);
 			commandMap.addToMap("locations", getLocations());
+			commandMap.addToMap("register", registerService.getRegister(registerId));
 		
 		return commandMap;
 	}

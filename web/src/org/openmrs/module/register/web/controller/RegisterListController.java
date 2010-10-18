@@ -53,10 +53,7 @@ public class RegisterListController {
 
 	private List<Register> getRegisters() {
 		RegisterService registerService = (RegisterService) Context.getService(RegisterService.class);
-		return registerService.getRegisters();
+		return registerService.getRegisters(true);
 	}
-
-
 	
-		
 }

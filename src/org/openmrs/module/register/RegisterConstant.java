@@ -22,6 +22,9 @@ public class RegisterConstant {
 
 	@AddOnStartup(description = "Able to add/edit/delete Register entries")
 	public static final String MANAGE_REGISTERS = "Manage Registers";
+	
+	@AddOnStartup(description = "Able to add/edit/delete Patient in the Register")
+	public static final String MANAGE_REGISTER_PATIENTS = "Manage Register Patients";
 
 	public static final String PRIVILEGE_REGISTER_FULL_ACCESS = VIEW_REGISTERS + "," + MANAGE_REGISTERS;
 }

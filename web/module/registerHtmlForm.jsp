@@ -1,5 +1,7 @@
 <%@ include file="/WEB-INF/template/include.jsp" %>
 
+<openmrs:require privilege="Manage Register Patients" otherwise="/login.htm" redirect="/module/register/registerEntry.list" />
+
 <c:set var="OPENMRS_DO_NOT_SHOW_PATIENT_SET" scope="request" value="true"/>
 <c:set var="pageFragment" value="${param.pageFragment != null && param.pageFragment}"/>
 <c:set var="inPopup" value="${pageFragment || (param.inPopup != null && param.inPopup)}"/>
