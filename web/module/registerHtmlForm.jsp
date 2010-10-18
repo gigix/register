@@ -159,6 +159,7 @@
 	
 	${command.map['session'].htmlToDisplay}
 	
+	
 <c:if test="${command.map['session'].context.mode != 'VIEW'}">
 	<div id="passwordPopup" style="position: absolute; z-axis: 1; bottom: 25px; background-color: #ffff00; border: 2px black solid; display: none; padding: 10px">
 		<center>

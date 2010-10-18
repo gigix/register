@@ -6,21 +6,47 @@
 
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
+<div id="displayAddRegisterEntryPopup">
+	<iframe id="displayAddRegisterEntryPopupIframe" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto"></iframe>
+</div>
+
+<script type="text/javascript">
+	$j(document).ready(function() {
+		$j('#displayAddRegisterEntryPopup').dialog({
+				title: 'dynamic',
+				autoOpen: false,
+				draggable: false,
+				resizable: false,
+				width: '95%',
+				modal: true,
+				open: function(a, b) {}
+		});
+	});
+
+	function loadUrlIntoAddRegisterEntryPopup(title, urlToLoad) {
+		$j("#displayAddRegisterEntryPopupIframe").attr("src", urlToLoad);
+		$j('#displayAddRegisterEntryPopup')
+			.dialog('option', 'title', title)
+			.dialog('option', 'height', '350')
+			.dialog('open');
+	}
+</script>
+
 <p>
 	<h2>
 		<spring:message code="register.management" />
 	</h2>
 </p>
 
-
-
-
-
-<a href="${ pageContext.request.contextPath }/module/register/registerHtmlForm.form?registerId=${commandMap.map['registerId']}&mode=Enter"><spring:message code="register.addPatient" /></a> 
-
 <br />
 <br />
+<c:url var="viewRegisterEntryUrl" value="/module/register/registerHtmlForm.form">
+	<c:param name="registerId" value="${commandMap.map['registerId']}"/>
+	<c:param name="mode" value="Enter"/>
+	<c:param name="inPopup" value="true"/>
+</c:url>
 
+<a href="" onClick="loadUrlIntoAddRegisterEntryPopup('<spring:message code="register.addPatientToRegister" />','${viewRegisterEntryUrl}');return false;"><spring:message code="register.addPatient" /></a>
 <b class="boxHeader">
 	<spring:message code="register.location.list.title"/>
 </b>
