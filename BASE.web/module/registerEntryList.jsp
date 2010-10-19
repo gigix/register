@@ -6,7 +6,9 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <div id="displayAddRegisterEntryPopup">
-	<iframe id="displayAddRegisterEntryPopupIframe" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto"></iframe>
+	<iframe id="displayAddRegisterEntryPopupIframe" width="100%"
+		height="100%" marginWidth="0" marginHeight="0" frameBorder="0"
+		scrolling="auto"></iframe>
 </div>
 
 <script type="text/javascript">
@@ -14,13 +16,11 @@
 		$j('#displayAddRegisterEntryPopup').dialog({
 				title: 'dynamic',
 				autoOpen: false,
-				draggable: true,
+				draggable: false,
 				resizable: true,
-				closeOnEscape: true,
 				width: '95%',
 				modal: true,
-				open: function(a, b) {},
-				close: function() { reloadView(); }
+				open: function(a, b) {}
 		});
 	});
 
@@ -30,8 +30,7 @@
 			.dialog('option', 'title', title)
 			.dialog('option', 'height', '450')
 			.dialog('open');
-			
-		}
+	}
 </script>
 
 <c:url var="viewRegisterEntryUrl"
@@ -41,14 +40,13 @@
 	<c:param name="inPopup" value="true" />
 </c:url>
 
-
 <p>
 	<h2>
 		${commandMap.map['register'].name}
 	</h2>
 </p>
 <br/>
-<c:if test="${not commandMap.map['register'].retired}">
+
 <openmrs:hasPrivilege privilege="Manage Register Patients">
 
 <openmrs:htmlInclude file="/scripts/dojoConfig.js"></openmrs:htmlInclude>
@@ -72,7 +70,7 @@
 		);
 		
 		<c:if test="${empty hideAddNewPatient}">
-			searchWidget.addPatientLink ='<a href="" onClick="loadUrlIntoAddRegisterEntryPopup(\'<spring:message code="register.addPatientToRegister" />\',\'${viewRegisterEntryUrl}\');return false;"><spring:message code="register.addPatientToRegister" /></a>';
+			searchWidget.addPatientLink ='<a href="" onClick="loadUrlIntoAddRegisterEntryPopup(\'<spring:message code="register.addPatientToRegister" />\',\'${viewRegisterEntryUrl}\');return false;"><spring:message code="register.addPatient" /></a>';
 		</c:if>
 		searchWidget.inputNode.select();
 		changeClassProperty("description", "display", "none");
@@ -81,7 +79,7 @@
 </script>
 
 <div id="findPatient">
-	<b class="boxHeader"><spring:message code="register.findPatient" />
+	<b class="boxHeader"><spring:message code="register.addPatientToRegister" />
 	</b>
 	<div class="box">
 		<div dojoType="PatientSearch" widgetId="pSearch"
@@ -90,16 +88,14 @@
 			showVerboseListing="true"
 			patientId='<request:parameter name="patientId"/>'
 			searchPhrase='<request:parameter name="phrase"/>'
-			showAddPatientLink='false'
+			<c:if test="${not empty hideAddNewPatient}">showAddPatientLink='false'</c:if>>
 		</div>
 	</div>
 </div>
 <br />
-<a href="" onClick="loadUrlIntoAddRegisterEntryPopup('<spring:message code="register.addPatientToRegister" />','${viewRegisterEntryUrl}');return false;"><spring:message code="register.addPatientToRegister" /></a>
 <br />
-<br/>
 </openmrs:hasPrivilege>
-</c:if>
+
 <b class="boxHeader">
 	<spring:message code="register.location.list.title"/>
 </b>
@@ -126,7 +122,7 @@
 	
 		<input type="hidden" id="registerId" value='<c:out value="${param.registerId}"/>'/>
 		
-	<div id="searchNav">
+	<div id="Pagination">
         </div>
 		<br style="clear:both;" />
         <h3></h3>
@@ -134,12 +130,12 @@
         	<table cellspacing="0" cellpadding="2" style="width: 100%;" class="openmrsSearchTable">
         	<thead>
         		<tr>
-        		<th>Encounter Id</th>
-        		<th>Encounter Type</th>
-        		<th>Form Name</th>
-        		<th>Person Name</th>
-        		<th>Provider Name</th>
-        		<th>Encounter Date</th>
+        		<th>encounterId</th>
+        		<th>encounterType</th>
+        		<th>formName</th>
+        		<th>personName</th>
+        		<th>providerName</th>
+        		<th>encounterDateString</th>
         		</tr></thead>
         		<tbody id="Searchresult">
         		</tbody>
@@ -155,19 +151,15 @@
 <openmrs:htmlInclude file="/dwr/interface/DWRRegisterService.js" />
 
 <openmrs:htmlInclude file="/moduleResources/register/jquery.pagination.js" />
-<openmrs:htmlInclude file="/moduleResources/register/pagination.css" />
 
 <script type="text/javascript">
 var registerEntries = {};
 var items_per_page = 20 ;
-
+/*
 $j('#locationId').change(function() {
-		reloadView();
+		DWRRegisterService.getRegisterEntriesByLocation($j('#registerId').val(), $j('#locationId').val(),fillDataInTable);
 });
-
-function reloadView(){
-	DWRRegisterService.getRegisterEntriesByLocation($j('#registerId').val(), $j('#locationId').val(),fillDataInTable);
-}
+*/
 fillDataInTable = function(data){
 	registerEntries = data;
 	loadDataForPagination();
@@ -184,16 +176,13 @@ fillDataInTable = function(data){
                 for(var i=page_index*items_per_page;i<max_elem;i++)
                 {
                 	newcontent += '<tr class="'+rowStyle+'">' ;
-					$j.each(requiredDataFromJson, function(key,value){
-					    newcontent += '<td>' + registerEntries[i][value] + '</td>';
-					    
-					})                	
+			$j.each(requiredDataFromJson, function(key,value){
+			    newcontent += '<td>' + registerEntries[i][value] + '</td>';
+			    
+			})                	
                 	newcontent += '</tr>' ;
-                	if(rowStyle == 'oddRow'){
-                    	rowStyle = 'evenRow';
-                	}else{
-                		rowStyle = 'oddRow';
-                	}
+                	rowStyle = 'evenRow';
+
                 }
                 
                 // Replace old content with new content
@@ -206,7 +195,7 @@ fillDataInTable = function(data){
             var loadDataForPagination = function(){
 				// Create pagination element with options from form
 				var optInit =  {callback: pageSelectCallback,num_display_entries:0,items_per_page:items_per_page};
-                $j("#searchNav").pagination(registerEntries.length, optInit);
+                $j("#Pagination").pagination(registerEntries.length, optInit);
                 
             }
             //When document has loaded, initialize pagination and form 
