@@ -1,12 +1,5 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
-
-<<<<<<< HEAD
-
-
-<openmrs:require privilege="View Registers" otherwise="/login.htm"	redirect="/module/register/manageRegister.list" />
-=======
 <openmrs:require privilege="View Registers" otherwise="/login.htm" redirect="/module/register/manageRegister.list" />
->>>>>>> b7d9306c0e2fd11bbdf97dbb77fff4b6f15b3482
 
 <spring:message var="pageTitle" code="register.manage.page.title" scope="page"/>
 
@@ -107,31 +100,9 @@
 	<spring:message code="register.location.list.title"/>
 </b>
 <form method="get" class="box">
-<<<<<<< HEAD
 
-<input type="hidden" id="registerId" value='<c:out value="${param.registerId}"/>'/>
 
-		<div id="locationList">
-			<table>
-					<tr>
-						<td>
-							<spring:message code="register.location.list.title" />
-							<select name="locationId" id="locationId">
-								<option value="">
-									<spring:message code="register.location.all" />
-								</option>
-								<c:forEach var="location" items="${ locations }">
-									<option value="${ location.locationId }">${ location.name }</option>
-								</c:forEach>
-							</select>
-							
-						</td>
-					</tr>
-				</table>
-				</div>
-	</form>
-	
-=======
+		
 	<div id="locationList">
 		<table>
 			<tr>
@@ -150,24 +121,86 @@
 			</tr>
 		</table>
 	</div>
+	
+		<input type="hidden" id="registerId" value='<c:out value="${param.registerId}"/>'/>
+		
+	<div id="Pagination">
+        </div>
+		<br style="clear:both;" />
+        <h3></h3>
+        	
+        	<table cellspacing="0" cellpadding="2" style="width: 100%;" class="openmrsSearchTable">
+        	<thead>
+        		<tr>
+        		<th>encounterId</th>
+        		<th>encounterType</th>
+        		<th>formName</th>
+        		<th>personName</th>
+        		<th>providerName</th>
+        		<th>encounterDateString</th>
+        		</tr></thead>
+        		<tbody id="Searchresult">
+        		</tbody>
+        	</table>
+
+	</div>
+	
 </form>
->>>>>>> b7d9306c0e2fd11bbdf97dbb77fff4b6f15b3482
 
 <%@ include file="/WEB-INF/template/footer.jsp"%>
 <openmrs:htmlInclude file="/dwr/engine.js" />
 <openmrs:htmlInclude file="/dwr/util.js" />
 <openmrs:htmlInclude file="/dwr/interface/DWRRegisterService.js" />
 
-<openmrs:htmlInclude file="/scripts/dojoConfig.js"></openmrs:htmlInclude>
-<openmrs:htmlInclude file="/scripts/dojo/dojo.js"></openmrs:htmlInclude>
+<openmrs:htmlInclude file="/moduleResources/register/jquery.pagination.js" />
+
 <script type="text/javascript">
-	var locationObj = document.getElementById('locationId');
-	getRegisterEntriesByLocation = function(){ 
-	DWRRegisterService.getRegisterEntriesByLocation(document.getElementById('registerId').value, locationObj.options[locationObj.selectedIndex].value);
+var registerEntries = {};
+var items_per_page = 20 ;
+$j('#locationId').change(function() {
+		DWRRegisterService.getRegisterEntriesByLocation($j('#registerId').val(), $j('#locationId').val(),fillDataInTable);
+});
+
+fillDataInTable = function(data){
+	registerEntries = data;
+	loadDataForPagination();
 }
-	
-dojo.addOnLoad(function() {
-    dojo.event.connect(locationObj,'onchange', getRegisterEntriesByLocation);
- });
+
+	function pageSelectCallback(page_index, jq){
+                // Get number of elements per pagionation page from form
+                var requiredDataFromJson = ["encounterId","encounterType","formName","personName","providerName","encounterDateString"];
+                var max_elem = Math.min((page_index+1) * items_per_page, registerEntries.length);
+                var newcontent = '';
+                
+                // Iterate through a selection of the content and build an HTML string
+                var rowStyle = "oddRow" ;
+                for(var i=page_index*items_per_page;i<max_elem;i++)
+                {
+                	newcontent += '<tr class="'+rowStyle+'">' ;
+			$j.each(requiredDataFromJson, function(key,value){
+			    newcontent += '<td>' + registerEntries[i][value] + '</td>';
+			    
+			})                	
+                	newcontent += '</tr>' ;
+                	rowStyle = 'evenRow';
+
+                }
+                
+                // Replace old content with new content
+                $j('#Searchresult').html(newcontent);
+                
+                // Prevent click event propagation
+                return false;
+            }
+            
+            var loadDataForPagination = function(){
+				// Create pagination element with options from form
+				var optInit =  {callback: pageSelectCallback,num_display_entries:0,items_per_page:items_per_page};
+                $j("#Pagination").pagination(registerEntries.length, optInit);
+                
+            }
+            //When document has loaded, initialize pagination and form 
+            $j(document).ready(loadDataForPagination);            
+            
 
 </script>
