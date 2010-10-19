@@ -17,14 +17,14 @@
 <br />
 
 <b class="boxHeader">
-	<spring:message code="register.list.title"/>
+	<spring:message code="register.management"/>
 </b>
 <form class="box">
 <table id="registerTable" cellspacing="5">
 		<tr>
 			<th> <spring:message code="general.name" /> </th>
 			<th> <spring:message code="general.description" /> </th>
-			<th> <spring:message code="register.type" /> </th>
+			<th> <spring:message code="register.type" /> </th>			
 		</tr>
 		<c:forEach var="register" items="${registers}">
 			<tr>

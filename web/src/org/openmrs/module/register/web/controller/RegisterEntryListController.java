@@ -21,11 +21,11 @@ import org.openmrs.Location;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.register.RegisterService;
-import org.openmrs.module.register.db.hibernate.Register;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value = "module/register/registerEntry.list")
@@ -48,16 +48,27 @@ public class RegisterEntryListController {
 		return REGISTER_ENTRY_FORM_VIEW;
 	}
 
-	@ModelAttribute("locations")
+	/*@ModelAttribute("locations")
 	protected List<Location> formBackingObject() throws Exception {
 		return getLocations();
+	}*/
+	
+	@ModelAttribute("commandMap")
+	protected CommandMap formBackingObject(@RequestParam(required=true, value="registerId") Integer registerId,@RequestParam(required=false, value="htmlFormId") Integer htmlFormId) throws Exception {
+			RegisterService registerService = Context.getService(RegisterService.class);
+			CommandMap commandMap = new CommandMap();
+			commandMap.addToMap("locations", getLocations());
+			commandMap.addToMap("register", registerService.getRegister(registerId));
+		
+		return commandMap;
 	}
 
 	private List<Location> getLocations() {
 		LocationService locationService = (LocationService) Context.getService(LocationService.class);
-
 		return locationService.getAllLocations();
 	}
+	
+	
 
 
 	

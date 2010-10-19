@@ -20,7 +20,6 @@
 	<classpathentry kind="lib" path="lib-common/simple/simple-xml-1.6.1-mod.jar"/>
 	<classpathentry kind="lib" path="lib-common/mail/mail.jar"/>
 	<classpathentry kind="lib" path="lib-common/spring-framework/org.springframework.asm-3.0.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib-common/htmlformentrymodule/htmlformentry-1.6.7.jar"/>
 	<classpathentry kind="lib" path="lib-common/tomcat/jsp-api.jar"/>
 	<classpathentry kind="lib" path="lib-common/dwr/dwr-205.jar"/>
 	<classpathentry kind="lib" path="lib-common/jstl/jstl-1.2.jar"/>
@@ -47,5 +46,6 @@
 	<classpathentry kind="lib" path="lib-common/openmrs-api-1.8.0-SNAPSHOT-tests.jar"/>
 	<classpathentry kind="lib" path="lib-common/openmrs-web-1.8.0-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib-common/openmrs-web-1.8.0-SNAPSHOT-tests.jar"/>
+	<classpathentry kind="lib" path="lib-common/htmlformentrymodule/htmlformentry-1.6.8.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>
