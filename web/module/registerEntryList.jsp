@@ -122,7 +122,7 @@
 	
 		<input type="hidden" id="registerId" value='<c:out value="${param.registerId}"/>'/>
 		
-	<div id="Pagination">
+	<div id="searchNav">
         </div>
 		<br style="clear:both;" />
         <h3></h3>
@@ -130,12 +130,12 @@
         	<table cellspacing="0" cellpadding="2" style="width: 100%;" class="openmrsSearchTable">
         	<thead>
         		<tr>
-        		<th>encounterId</th>
-        		<th>encounterType</th>
-        		<th>formName</th>
-        		<th>personName</th>
-        		<th>providerName</th>
-        		<th>encounterDateString</th>
+        		<th>Encounter Id</th>
+        		<th>Encounter Type</th>
+        		<th>Form Name</th>
+        		<th>Person Name</th>
+        		<th>Provider Name</th>
+        		<th>Encounter Date</th>
         		</tr></thead>
         		<tbody id="Searchresult">
         		</tbody>
@@ -151,15 +151,16 @@
 <openmrs:htmlInclude file="/dwr/interface/DWRRegisterService.js" />
 
 <openmrs:htmlInclude file="/moduleResources/register/jquery.pagination.js" />
+<openmrs:htmlInclude file="/moduleResources/register/pagination.css" />
 
 <script type="text/javascript">
 var registerEntries = {};
 var items_per_page = 20 ;
-/*
+
 $j('#locationId').change(function() {
 		DWRRegisterService.getRegisterEntriesByLocation($j('#registerId').val(), $j('#locationId').val(),fillDataInTable);
 });
-*/
+
 fillDataInTable = function(data){
 	registerEntries = data;
 	loadDataForPagination();
@@ -176,13 +177,16 @@ fillDataInTable = function(data){
                 for(var i=page_index*items_per_page;i<max_elem;i++)
                 {
                 	newcontent += '<tr class="'+rowStyle+'">' ;
-			$j.each(requiredDataFromJson, function(key,value){
-			    newcontent += '<td>' + registerEntries[i][value] + '</td>';
-			    
-			})                	
+					$j.each(requiredDataFromJson, function(key,value){
+					    newcontent += '<td>' + registerEntries[i][value] + '</td>';
+					    
+					})                	
                 	newcontent += '</tr>' ;
-                	rowStyle = 'evenRow';
-
+                	if(rowStyle == 'oddRow'){
+                    	rowStyle = 'evenRow';
+                	}else{
+                		rowStyle = 'oddRow';
+                	}
                 }
                 
                 // Replace old content with new content
@@ -195,7 +199,7 @@ fillDataInTable = function(data){
             var loadDataForPagination = function(){
 				// Create pagination element with options from form
 				var optInit =  {callback: pageSelectCallback,num_display_entries:0,items_per_page:items_per_page};
-                $j("#Pagination").pagination(registerEntries.length, optInit);
+                $j("#searchNav").pagination(registerEntries.length, optInit);
                 
             }
             //When document has loaded, initialize pagination and form 
