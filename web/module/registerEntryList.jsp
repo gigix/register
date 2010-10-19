@@ -47,7 +47,7 @@
 	</h2>
 </p>
 <br/>
-
+<c:if test="${not commandMap.map['register'].retired}">
 <openmrs:hasPrivilege privilege="Manage Register Patients">
 
 <openmrs:htmlInclude file="/scripts/dojoConfig.js"></openmrs:htmlInclude>
@@ -71,7 +71,7 @@
 		);
 		
 		<c:if test="${empty hideAddNewPatient}">
-			searchWidget.addPatientLink ='<a href="" onClick="loadUrlIntoAddRegisterEntryPopup(\'<spring:message code="register.addPatientToRegister" />\',\'${viewRegisterEntryUrl}\');return false;"><spring:message code="register.addPatient" /></a>';
+			searchWidget.addPatientLink ='<a href="" onClick="loadUrlIntoAddRegisterEntryPopup(\'<spring:message code="register.addPatientToRegister" />\',\'${viewRegisterEntryUrl}\');return false;"><spring:message code="register.addPatientToRegister" /></a>';
 		</c:if>
 		searchWidget.inputNode.select();
 		changeClassProperty("description", "display", "none");
@@ -80,7 +80,7 @@
 </script>
 
 <div id="findPatient">
-	<b class="boxHeader"><spring:message code="register.addPatientToRegister" />
+	<b class="boxHeader"><spring:message code="register.findPatient" />
 	</b>
 	<div class="box">
 		<div dojoType="PatientSearch" widgetId="pSearch"
@@ -89,14 +89,16 @@
 			showVerboseListing="true"
 			patientId='<request:parameter name="patientId"/>'
 			searchPhrase='<request:parameter name="phrase"/>'
-			<c:if test="${not empty hideAddNewPatient}">showAddPatientLink='false'</c:if>>
+			showAddPatientLink='false'
 		</div>
 	</div>
 </div>
 <br />
+<a href="" onClick="loadUrlIntoAddRegisterEntryPopup('<spring:message code="register.addPatientToRegister" />','${viewRegisterEntryUrl}');return false;"><spring:message code="register.addPatientToRegister" /></a>
 <br />
+<br/>
 </openmrs:hasPrivilege>
-<a href="" onClick="loadUrlIntoAddRegisterEntryPopup('<spring:message code="register.addPatientToRegister" />','${viewRegisterEntryUrl}');return false;"><spring:message code="register.addPatient" /></a>
+</c:if>
 <b class="boxHeader">
 	<spring:message code="register.location.list.title"/>
 </b>

@@ -17,6 +17,11 @@
 <br />
 
 <b class="boxHeader">
+<a style="display: block; float: right"
+	href="#"
+	onClick="return toggleRowVisibilityForClass('registerTable', 'retired', false);">
+	<spring:message code="register.toggle.retired" />
+</a>
 	<spring:message code="register.management"/>
 </b>
 <form class="box">
@@ -27,7 +32,7 @@
 			<th> <spring:message code="register.type" /> </th>			
 		</tr>
 		<c:forEach var="register" items="${registers}">
-			<tr>
+			<tr <c:if test="${register.retired}">class="retired"</c:if>>
 				<td valign="top">
 					<a href="registerEntry.list?registerId=${register.registerId}">${register.name}</a> 
 				</td>
@@ -39,5 +44,9 @@
 		
 		
 	</table> </form>
+<script type="text/javascript">
+	toggleRowVisibilityForClass("registerTable", "retired", false);
+</script>
+	
 <%@ include file="/WEB-INF/template/footer.jsp"%>
 
