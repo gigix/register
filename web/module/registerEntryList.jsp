@@ -101,8 +101,6 @@
 </b>
 <form method="get" class="box">
 
-
-		
 	<div id="locationList">
 		<table>
 			<tr>
@@ -157,10 +155,11 @@
 <script type="text/javascript">
 var registerEntries = {};
 var items_per_page = 20 ;
+/*
 $j('#locationId').change(function() {
 		DWRRegisterService.getRegisterEntriesByLocation($j('#registerId').val(), $j('#locationId').val(),fillDataInTable);
 });
-
+*/
 fillDataInTable = function(data){
 	registerEntries = data;
 	loadDataForPagination();
