@@ -55,8 +55,5 @@ public class RegisterListController {
 		RegisterService registerService = (RegisterService) Context.getService(RegisterService.class);
 		return registerService.getRegisters(true);
 	}
-
-
 	
-		
 }

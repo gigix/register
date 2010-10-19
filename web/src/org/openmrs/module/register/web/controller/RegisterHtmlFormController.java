@@ -1,11 +1,8 @@
 package org.openmrs.module.register.web.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.openmrs.Form;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.htmlformentry.FormEntrySession;
@@ -22,7 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 public class RegisterHtmlFormController extends HtmlFormEntryController {
 
-		private boolean isEncounterEnabled = false;
+	private boolean isEncounterEnabled = false;
+	private boolean isPatientCreated = false;
 
 	/**
 	 * Initially called after the formBackingObject method to get the landing
@@ -39,18 +37,27 @@ public class RegisterHtmlFormController extends HtmlFormEntryController {
 		Register register=null;
 		CommandMap commandMap= new CommandMap();
 		
+		String patientIDParam = request.getParameter("patientId");
+		if (StringUtils.hasText(patientIDParam)) {
+			try {
+				patient = Context.getPatientService().getPatient(new Integer(patientIDParam));
+			}
+			catch (Exception e) {
+			}
+		}
 
 		Mode mode = Mode.VIEW;
 		if ("Enter".equalsIgnoreCase(request.getParameter("mode"))) {
 			mode = Mode.ENTER;
-			patient = new Patient();
+			if (patient == null) {
+				patient = new Patient();
+				isPatientCreated = true;
+			}
 		}
 		else if ("Edit".equalsIgnoreCase(request.getParameter("mode"))) {
 			mode = Mode.EDIT;
 		}
 
-	
-		
 		String registerIdParam = request.getParameter("registerId");
 		
 		if (StringUtils.hasText(registerIdParam)) {
@@ -65,12 +72,8 @@ public class RegisterHtmlFormController extends HtmlFormEntryController {
 			throw new IllegalArgumentException("The given register ID '" + registerIdParam + "' does not have an HtmlForm associated with it");
 
 		if (mode == Mode.VIEW || mode == Mode.EDIT) {
-			String patientIDParam = request.getParameter("patientId");
+
 			if (StringUtils.hasText(patientIDParam)) {
-				try {
-					patient = Context.getPatientService().getPatient(new Integer(patientIDParam));
-				} catch (Exception e) {
-				}
 				if (patient == null)
 					throw new IllegalArgumentException("No patient with id " + patientIDParam
 							+ "  or not able to reterive the given patient details.");
@@ -112,7 +115,7 @@ public class RegisterHtmlFormController extends HtmlFormEntryController {
 			session.preparePersonForSubmit();
 		}
 
-		if (session.getContext().getMode() == Mode.ENTER
+		if (session.getContext().getMode() == Mode.ENTER && isPatientCreated
 				&& (session.getSubmissionActions().getPersonsToCreate() == null || session.getSubmissionActions().getPersonsToCreate().size() == 0))
 			throw new IllegalArgumentException("This form is not going to create an Patient");
 
