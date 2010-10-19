@@ -6,7 +6,9 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <div id="displayAddRegisterEntryPopup">
-	<iframe id="displayAddRegisterEntryPopupIframe" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto"></iframe>
+	<iframe id="displayAddRegisterEntryPopupIframe" width="100%"
+		height="100%" marginWidth="0" marginHeight="0" frameBorder="0"
+		scrolling="auto"></iframe>
 </div>
 
 <script type="text/javascript">
@@ -14,13 +16,11 @@
 		$j('#displayAddRegisterEntryPopup').dialog({
 				title: 'dynamic',
 				autoOpen: false,
-				draggable: true,
+				draggable: false,
 				resizable: true,
-				closeOnEscape: true,
 				width: '95%',
 				modal: true,
-				open: function(a, b) {},
-				close: function() { reloadView(); }
+				open: function(a, b) {}
 		});
 	});
 
@@ -30,8 +30,7 @@
 			.dialog('option', 'title', title)
 			.dialog('option', 'height', '450')
 			.dialog('open');
-			
-		}
+	}
 </script>
 
 <c:url var="viewRegisterEntryUrl"
@@ -41,14 +40,13 @@
 	<c:param name="inPopup" value="true" />
 </c:url>
 
-
 <p>
 	<h2>
 		${commandMap.map['register'].name}
 	</h2>
 </p>
 <br/>
-<c:if test="${not commandMap.map['register'].retired}">
+
 <openmrs:hasPrivilege privilege="Manage Register Patients">
 
 <openmrs:htmlInclude file="/scripts/dojoConfig.js"></openmrs:htmlInclude>
@@ -72,7 +70,7 @@
 		);
 		
 		<c:if test="${empty hideAddNewPatient}">
-			searchWidget.addPatientLink ='<a href="" onClick="loadUrlIntoAddRegisterEntryPopup(\'<spring:message code="register.addPatientToRegister" />\',\'${viewRegisterEntryUrl}\');return false;"><spring:message code="register.addPatientToRegister" /></a>';
+			searchWidget.addPatientLink ='<a href="" onClick="loadUrlIntoAddRegisterEntryPopup(\'<spring:message code="register.addPatientToRegister" />\',\'${viewRegisterEntryUrl}\');return false;"><spring:message code="register.addPatient" /></a>';
 		</c:if>
 		searchWidget.inputNode.select();
 		changeClassProperty("description", "display", "none");
@@ -81,7 +79,7 @@
 </script>
 
 <div id="findPatient">
-	<b class="boxHeader"><spring:message code="register.findPatient" />
+	<b class="boxHeader"><spring:message code="register.addPatientToRegister" />
 	</b>
 	<div class="box">
 		<div dojoType="PatientSearch" widgetId="pSearch"
@@ -90,16 +88,14 @@
 			showVerboseListing="true"
 			patientId='<request:parameter name="patientId"/>'
 			searchPhrase='<request:parameter name="phrase"/>'
-			showAddPatientLink='false'
+			<c:if test="${not empty hideAddNewPatient}">showAddPatientLink='false'</c:if>>
 		</div>
 	</div>
 </div>
 <br />
-<a href="" onClick="loadUrlIntoAddRegisterEntryPopup('<spring:message code="register.addPatientToRegister" />','${viewRegisterEntryUrl}');return false;"><spring:message code="register.addPatientToRegister" /></a>
 <br />
-<br/>
 </openmrs:hasPrivilege>
-</c:if>
+
 <b class="boxHeader">
 	<spring:message code="register.location.list.title"/>
 </b>
@@ -111,7 +107,7 @@
 				<td>
 					<spring:message code="register.location.list.title" />
 					<select name="locationId" id="locationId">
-						<option value="-1">
+						<option value="">
 							<spring:message code="register.location.all" />
 						</option>
 						<c:forEach var="location" items="${commandMap.map['locations'] }">
@@ -126,9 +122,9 @@
 	
 		<input type="hidden" id="registerId" value='<c:out value="${param.registerId}"/>'/>
 		
-
+	<div id="searchNav">
+        </div>
 		<br style="clear:both;" />
-		<div id="searchInfoBar"></div>
         <h3></h3>
         	
         	<table cellspacing="0" cellpadding="2" style="width: 100%;" class="openmrsSearchTable">
@@ -144,7 +140,8 @@
         		<tbody id="Searchresult">
         		</tbody>
         	</table>
-	<div id="searchNav" align="center" style="padding: 9px;"></div>
+
+	</div>
 	
 </form>
 
@@ -154,25 +151,22 @@
 <openmrs:htmlInclude file="/dwr/interface/DWRRegisterService.js" />
 
 <openmrs:htmlInclude file="/moduleResources/register/jquery.pagination.js" />
+<openmrs:htmlInclude file="/moduleResources/register/pagination.css" />
 
 <script type="text/javascript">
 var registerEntries = {};
 var items_per_page = 20 ;
 
 $j('#locationId').change(function() {
-		reloadView();
+		DWRRegisterService.getRegisterEntriesByLocation($j('#registerId').val(), $j('#locationId').val(),fillDataInTable);
 });
 
-function reloadView(){
-	DWRRegisterService.getRegisterEntriesByLocation($j('#registerId').val(), $j('#locationId').val(),fillDataInTable);
-}
 fillDataInTable = function(data){
 	registerEntries = data;
 	loadDataForPagination();
 }
 
 	function pageSelectCallback(page_index, jq){
-		
                 // Get number of elements per pagionation page from form
                 var requiredDataFromJson = ["encounterId","encounterType","formName","personName","providerName","encounterDateString"];
                 var max_elem = Math.min((page_index+1) * items_per_page, registerEntries.length);
@@ -180,8 +174,7 @@ fillDataInTable = function(data){
                 
                 // Iterate through a selection of the content and build an HTML string
                 var rowStyle = "oddRow" ;
-                var startingIndex=(page_index*items_per_page);
-                for(var i = startingIndex;i<max_elem;i++)
+                for(var i=page_index*items_per_page;i<max_elem;i++)
                 {
                 	newcontent += '<tr class="'+rowStyle+'">' ;
 					$j.each(requiredDataFromJson, function(key,value){
@@ -198,18 +191,14 @@ fillDataInTable = function(data){
                 
                 // Replace old content with new content
                 $j('#Searchresult').html(newcontent);
-                if(registerEntries && registerEntries.length >0){
-                	$j('#searchInfoBar').text("Viewing "+(startingIndex+1)+"-"+max_elem +' of '+registerEntries.length);
-                }else{
-                	$j('#searchInfoBar').text("");
-                }
+                
                 // Prevent click event propagation
                 return false;
             }
             
             var loadDataForPagination = function(){
 				// Create pagination element with options from form
-				var optInit =  {callback: pageSelectCallback,num_display_entries:0,items_per_page:items_per_page,prev_text:'Previous Results',next_text:'Next Results'};
+				var optInit =  {callback: pageSelectCallback,num_display_entries:0,items_per_page:items_per_page};
                 $j("#searchNav").pagination(registerEntries.length, optInit);
                 
             }

@@ -13,6 +13,7 @@ import org.openmrs.module.htmlformentry.FormEntryContext.Mode;
 import org.openmrs.module.htmlformentry.web.controller.HtmlFormEntryController;
 import org.openmrs.module.register.RegisterService;
 import org.openmrs.module.register.db.hibernate.Register;
+import org.openmrs.web.WebConstants;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,7 +32,7 @@ public class RegisterHtmlFormController extends HtmlFormEntryController {
 	
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
-
+		isPatientCreated = false;
 		HtmlForm htmlForm = null;
 		Patient patient = null;
 		Register register=null;
@@ -119,7 +120,13 @@ public class RegisterHtmlFormController extends HtmlFormEntryController {
 				&& (session.getSubmissionActions().getPersonsToCreate() == null || session.getSubmissionActions().getPersonsToCreate().size() == 0))
 			throw new IllegalArgumentException("This form is not going to create an Patient");
 
-		return handleSubmit(request, response, session, errors);
+		ModelAndView resultView = handleSubmit(request, response, session, errors);
+		
+		if(!errors.hasErrors()){
+			request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "register.record.saved");
+		}
+
+		return resultView;
 	}
 
 	private boolean hasEncouterTag(String xmlData) {

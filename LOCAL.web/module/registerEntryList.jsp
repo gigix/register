@@ -111,7 +111,7 @@
 				<td>
 					<spring:message code="register.location.list.title" />
 					<select name="locationId" id="locationId">
-						<option value="-1">
+						<option value="">
 							<spring:message code="register.location.all" />
 						</option>
 						<c:forEach var="location" items="${commandMap.map['locations'] }">
@@ -126,25 +126,26 @@
 	
 		<input type="hidden" id="registerId" value='<c:out value="${param.registerId}"/>'/>
 		
-
+	<div id="Pagination">
+        </div>
 		<br style="clear:both;" />
-		<div id="searchInfoBar"></div>
         <h3></h3>
         	
         	<table cellspacing="0" cellpadding="2" style="width: 100%;" class="openmrsSearchTable">
         	<thead>
         		<tr>
-        		<th>Encounter Id</th>
-        		<th>Encounter Type</th>
-        		<th>Form Name</th>
-        		<th>Person Name</th>
-        		<th>Provider Name</th>
-        		<th>Encounter Date</th>
+        		<th>encounterId</th>
+        		<th>encounterType</th>
+        		<th>formName</th>
+        		<th>personName</th>
+        		<th>providerName</th>
+        		<th>encounterDateString</th>
         		</tr></thead>
         		<tbody id="Searchresult">
         		</tbody>
         	</table>
-	<div id="searchNav" align="center" style="padding: 9px;"></div>
+
+	</div>
 	
 </form>
 
@@ -172,7 +173,6 @@ fillDataInTable = function(data){
 }
 
 	function pageSelectCallback(page_index, jq){
-		
                 // Get number of elements per pagionation page from form
                 var requiredDataFromJson = ["encounterId","encounterType","formName","personName","providerName","encounterDateString"];
                 var max_elem = Math.min((page_index+1) * items_per_page, registerEntries.length);
@@ -180,37 +180,29 @@ fillDataInTable = function(data){
                 
                 // Iterate through a selection of the content and build an HTML string
                 var rowStyle = "oddRow" ;
-                var startingIndex=(page_index*items_per_page);
-                for(var i = startingIndex;i<max_elem;i++)
+                for(var i=page_index*items_per_page;i<max_elem;i++)
                 {
                 	newcontent += '<tr class="'+rowStyle+'">' ;
-					$j.each(requiredDataFromJson, function(key,value){
-					    newcontent += '<td>' + registerEntries[i][value] + '</td>';
-					    
-					})                	
+			$j.each(requiredDataFromJson, function(key,value){
+			    newcontent += '<td>' + registerEntries[i][value] + '</td>';
+			    
+			})                	
                 	newcontent += '</tr>' ;
-                	if(rowStyle == 'oddRow'){
-                    	rowStyle = 'evenRow';
-                	}else{
-                		rowStyle = 'oddRow';
-                	}
+                	rowStyle = 'evenRow';
+
                 }
                 
                 // Replace old content with new content
                 $j('#Searchresult').html(newcontent);
-                if(registerEntries && registerEntries.length >0){
-                	$j('#searchInfoBar').text("Viewing "+(startingIndex+1)+"-"+max_elem +' of '+registerEntries.length);
-                }else{
-                	$j('#searchInfoBar').text("");
-                }
+                
                 // Prevent click event propagation
                 return false;
             }
             
             var loadDataForPagination = function(){
 				// Create pagination element with options from form
-				var optInit =  {callback: pageSelectCallback,num_display_entries:0,items_per_page:items_per_page,prev_text:'Previous Results',next_text:'Next Results'};
-                $j("#searchNav").pagination(registerEntries.length, optInit);
+				var optInit =  {callback: pageSelectCallback,num_display_entries:0,items_per_page:items_per_page};
+                $j("#Pagination").pagination(registerEntries.length, optInit);
                 
             }
             //When document has loaded, initialize pagination and form 
