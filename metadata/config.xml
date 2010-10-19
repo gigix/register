@@ -75,6 +75,23 @@
 		</signatures>
 	</dwr>
 	-->
+	
+		<dwr>
+		<allow>
+			<create creator="new" javascript="DWRRegisterService">
+				<param name="class" value="org.openmrs.module.register.web.dwr.DWRRegisterService"/>
+				<include method="getRegisterEntriesByLocation"/>
+			</create>
+		</allow>
+
+		<signatures>
+			<![CDATA[
+				import org.openmrs.module.register.web.dwr.DWRRegisterService;
+				DWRRegisterService.getRegisterEntriesByLocation(int registerId, int locationId);
+			]]>
+		</signatures>
+	</dwr>
+	
                     `
 	<!-- Servlets -->
 	<!-- Accessed through the url /pageContext()/moduleServlet/<moduleId>/<servlet-name>
