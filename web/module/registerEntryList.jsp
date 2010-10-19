@@ -122,9 +122,9 @@
 	
 		<input type="hidden" id="registerId" value='<c:out value="${param.registerId}"/>'/>
 		
-	<div id="searchNav">
-        </div>
+
 		<br style="clear:both;" />
+		<div id="searchInfoBar"></div>
         <h3></h3>
         	
         	<table cellspacing="0" cellpadding="2" style="width: 100%;" class="openmrsSearchTable">
@@ -140,8 +140,7 @@
         		<tbody id="Searchresult">
         		</tbody>
         	</table>
-
-	</div>
+	<div id="searchNav" align="center" style="padding: 9px;"></div>
 	
 </form>
 
@@ -151,7 +150,6 @@
 <openmrs:htmlInclude file="/dwr/interface/DWRRegisterService.js" />
 
 <openmrs:htmlInclude file="/moduleResources/register/jquery.pagination.js" />
-<openmrs:htmlInclude file="/moduleResources/register/pagination.css" />
 
 <script type="text/javascript">
 var registerEntries = {};
@@ -167,6 +165,7 @@ fillDataInTable = function(data){
 }
 
 	function pageSelectCallback(page_index, jq){
+		
                 // Get number of elements per pagionation page from form
                 var requiredDataFromJson = ["encounterId","encounterType","formName","personName","providerName","encounterDateString"];
                 var max_elem = Math.min((page_index+1) * items_per_page, registerEntries.length);
@@ -174,7 +173,8 @@ fillDataInTable = function(data){
                 
                 // Iterate through a selection of the content and build an HTML string
                 var rowStyle = "oddRow" ;
-                for(var i=page_index*items_per_page;i<max_elem;i++)
+                var startingIndex=(page_index*items_per_page);
+                for(var i = startingIndex;i<max_elem;i++)
                 {
                 	newcontent += '<tr class="'+rowStyle+'">' ;
 					$j.each(requiredDataFromJson, function(key,value){
@@ -191,14 +191,18 @@ fillDataInTable = function(data){
                 
                 // Replace old content with new content
                 $j('#Searchresult').html(newcontent);
-                
+                if(registerEntries && registerEntries.length >0){
+                	$j('#searchInfoBar').text("Viewing "+(startingIndex+1)+"-"+max_elem +' of '+registerEntries.length);
+                }else{
+                	$j('#searchInfoBar').text("");
+                }
                 // Prevent click event propagation
                 return false;
             }
             
             var loadDataForPagination = function(){
 				// Create pagination element with options from form
-				var optInit =  {callback: pageSelectCallback,num_display_entries:0,items_per_page:items_per_page};
+				var optInit =  {callback: pageSelectCallback,num_display_entries:0,items_per_page:items_per_page,prev_text:'Previous Results',next_text:'Next Results'};
                 $j("#searchNav").pagination(registerEntries.length, optInit);
                 
             }
