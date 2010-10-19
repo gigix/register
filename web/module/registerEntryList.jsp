@@ -16,9 +16,11 @@
 				autoOpen: false,
 				draggable: true,
 				resizable: true,
+				closeOnEscape: true,
 				width: '95%',
 				modal: true,
-				open: function(a, b) {}
+				open: function(a, b) {},
+				close: function() { reloadView(); }
 		});
 	});
 
@@ -28,9 +30,9 @@
 			.dialog('option', 'title', title)
 			.dialog('option', 'height', '450')
 			.dialog('open');
-	}
+			
+		}
 </script>
-
 
 <c:url var="viewRegisterEntryUrl"
 	value="/module/register/registerHtmlForm.form">
@@ -157,11 +159,14 @@
 <script type="text/javascript">
 var registerEntries = {};
 var items_per_page = 20 ;
-/*
+
 $j('#locationId').change(function() {
-		DWRRegisterService.getRegisterEntriesByLocation($j('#registerId').val(), $j('#locationId').val(),fillDataInTable);
+		reloadView();
 });
-*/
+
+function reloadView(){
+	DWRRegisterService.getRegisterEntriesByLocation($j('#registerId').val(), $j('#locationId').val(),fillDataInTable);
+}
 fillDataInTable = function(data){
 	registerEntries = data;
 	loadDataForPagination();
