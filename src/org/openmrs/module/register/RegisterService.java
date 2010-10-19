@@ -57,6 +57,7 @@ public interface RegisterService {
 	public RegisterType getRegisterType(Integer registerTypeId);
 	
 	@Transactional(readOnly = true)
+	@Authorized( { RegisterConstant.VIEW_REGISTERS })
 	public List<Encounter> getEncountersForRegisterByLocation(Integer registerId ,Integer locationId);
 
 }

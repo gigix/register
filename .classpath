@@ -42,10 +42,10 @@
 	<classpathentry kind="lib" path="lib-common/slf4j/slf4j-log4j12-1.5.6.jar"/>
 	<classpathentry kind="lib" path="lib-common/commons-lang/commons-lang-2.4.jar"/>
 	<classpathentry kind="lib" path="lib-common/h2database/h2-1.2.135.jar"/>
+	<classpathentry kind="lib" path="lib-common/htmlformentrymodule/htmlformentry-1.6.8.jar"/>
 	<classpathentry kind="lib" path="lib-common/openmrs-api-1.8.0-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib-common/openmrs-api-1.8.0-SNAPSHOT-tests.jar"/>
 	<classpathentry kind="lib" path="lib-common/openmrs-web-1.8.0-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib-common/openmrs-web-1.8.0-SNAPSHOT-tests.jar"/>
-	<classpathentry kind="lib" path="lib-common/htmlformentrymodule/htmlformentry-1.6.8.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>

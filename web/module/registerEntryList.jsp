@@ -111,7 +111,7 @@
 				<td>
 					<spring:message code="register.location.list.title" />
 					<select name="locationId" id="locationId">
-						<option value="">
+						<option value="-1">
 							<spring:message code="register.location.all" />
 						</option>
 						<c:forEach var="location" items="${commandMap.map['locations'] }">
