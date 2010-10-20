@@ -76,6 +76,7 @@
 		</c:if>
 		searchWidget.inputNode.select();
 		changeClassProperty("description", "display", "none");
+		reloadView();
 	});
 	
 </script>
@@ -125,14 +126,23 @@
 	</div>
 	
 		<input type="hidden" id="registerId" value='<c:out value="${param.registerId}"/>'/>
-		
-
 		<br style="clear:both;" />
-		<div id="searchInfoBar"></div>
+		<table width="100%">
+			<tr>
+				<td align="left">
+		        	Show <select id="noOfItems"   onChange="loadDataForPagination();"><option value="2">20</option><option value="5">50</option><option value="7">100</option></select> entries
+		        </td>
+		        <td align="right">
+		        	<div id="searchInfoBar"></div>
+		        </td>
+	        </tr>
+       </table>	
+       
         <h3></h3>
         	
         	<table cellspacing="0" cellpadding="2" style="width: 100%;" class="openmrsSearchTable">
         	<thead>
+        	
         		<tr>
         		<th>Encounter Id</th>
         		<th>Encounter Type</th>
@@ -157,7 +167,6 @@
 
 <script type="text/javascript">
 var registerEntries = {};
-var items_per_page = 20 ;
 
 $j('#locationId').change(function() {
 		reloadView();
@@ -172,8 +181,9 @@ fillDataInTable = function(data){
 }
 
 	function pageSelectCallback(page_index, jq){
-		
-                // Get number of elements per pagionation page from form
+	
+				var items_per_page = $j('#noOfItems').val();
+		       // Get number of elements per pagionation page from form
                 var requiredDataFromJson = ["encounterId","encounterType","formName","personName","providerName","encounterDateString"];
                 var max_elem = Math.min((page_index+1) * items_per_page, registerEntries.length);
                 var newcontent = '';
@@ -209,7 +219,7 @@ fillDataInTable = function(data){
             
             var loadDataForPagination = function(){
 				// Create pagination element with options from form
-				var optInit =  {callback: pageSelectCallback,num_display_entries:0,items_per_page:items_per_page,prev_text:'Previous Results',next_text:'Next Results'};
+				var optInit =  {callback: pageSelectCallback,num_display_entries:0,items_per_page:$j('#noOfItems').val(),prev_text:'Previous Results',next_text:'Next Results'};
                 $j("#searchNav").pagination(registerEntries.length, optInit);
                 
             }
