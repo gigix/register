@@ -82,13 +82,6 @@
 								 
 			insert into `register_type` (`register_type_id`, `name`, `description`,	`creator`, `date_created`, `retired`, `uuid`) 
 								 values (NULL, 'Program Register', 'Program Register', '1', '2010-09-25', '0', UUID());
-								 
-			
-			insert into `privilege` (`privilege`, `description`, `uuid`) values ('View Registers', 'Able to view Register entries', UUID());
-
-			insert into `privilege` (`privilege`, `description`, `uuid`) values ('Manage Registers', 'Able to add/edit/delete Register entries', UUID());
-
-			
 		</sql>
 	</diff>
 </sqldiff>

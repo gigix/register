@@ -49,57 +49,57 @@
 </p>
 <br/>
 <c:if test="${not commandMap.map['register'].retired}">
-<openmrs:hasPrivilege privilege="Manage Register Patients">
-
-<openmrs:htmlInclude file="/scripts/dojoConfig.js"></openmrs:htmlInclude>
-<openmrs:htmlInclude file="/scripts/dojo/dojo.js"></openmrs:htmlInclude>
-
-<script type="text/javascript">
-	dojo.require("dojo.widget.openmrs.PatientSearch");
-	
-	dojo.addOnLoad( function() {
+	<openmrs:hasPrivilege privilege="Manage Register Patients">
 		
-		searchWidget = dojo.widget.manager.getWidgetById("pSearch");
-		dojo.event.topic.subscribe("pSearch/select", 
-			function(msg) {
-				if (msg.objs[0].patientId){
-					var newPatientURL = "${viewRegisterEntryUrl}" + "&patientId="+msg.objs[0].patientId;
-					loadUrlIntoAddRegisterEntryPopup('<spring:message code="register.addPatientToRegister" />',newPatientURL);
-				}
-				else if (msg.objs[0].href)
-					document.location = msg.objs[0].href;
-			}
-		);
+		<openmrs:htmlInclude file="/scripts/dojoConfig.js"></openmrs:htmlInclude>
+		<openmrs:htmlInclude file="/scripts/dojo/dojo.js"></openmrs:htmlInclude>
 		
-		<c:if test="${empty hideAddNewPatient}">
-			searchWidget.addPatientLink ='<a href="" onClick="loadUrlIntoAddRegisterEntryPopup(\'<spring:message code="register.addPatientToRegister" />\',\'${viewRegisterEntryUrl}\');return false;"><spring:message code="register.addPatientToRegister" /></a>';
-		</c:if>
-		searchWidget.inputNode.select();
-		changeClassProperty("description", "display", "none");
-		reloadView();
-	});
-	
-</script>
-
-<div id="findPatient">
-	<b class="boxHeader"><spring:message code="register.findPatient" />
-	</b>
-	<div class="box">
-		<div dojoType="PatientSearch" widgetId="pSearch"
-			showIncludeVoided="true"
-			searchLabel="<spring:message code="Patient.searchBox" htmlEscape="true"/>"
-			showVerboseListing="true"
-			patientId='<request:parameter name="patientId"/>'
-			searchPhrase='<request:parameter name="phrase"/>'
-			showAddPatientLink='false'
+		<script type="text/javascript">
+			dojo.require("dojo.widget.openmrs.PatientSearch");
+			
+			dojo.addOnLoad( function() {
+				
+				searchWidget = dojo.widget.manager.getWidgetById("pSearch");
+				dojo.event.topic.subscribe("pSearch/select", 
+					function(msg) {
+						if (msg.objs[0].patientId){
+							var newPatientURL = "${viewRegisterEntryUrl}" + "&patientId="+msg.objs[0].patientId;
+							loadUrlIntoAddRegisterEntryPopup('<spring:message code="register.addPatientToRegister" />',newPatientURL);
+						}
+						else if (msg.objs[0].href)
+							document.location = msg.objs[0].href;
+					}
+				);
+				
+				<c:if test="${empty hideAddNewPatient}">
+					searchWidget.addPatientLink ='<a href="" onClick="loadUrlIntoAddRegisterEntryPopup(\'<spring:message code="register.addPatientToRegister" />\',\'${viewRegisterEntryUrl}\');return false;"><spring:message code="register.addPatientToRegister" /></a>';
+				</c:if>
+				searchWidget.inputNode.select();
+				changeClassProperty("description", "display", "none");
+				reloadView();
+			});
+			
+		</script>
+		
+		<div id="findPatient">
+			<b class="boxHeader"><spring:message code="register.findPatient" />
+			</b>
+			<div class="box">
+				<div dojoType="PatientSearch" widgetId="pSearch"
+					showIncludeVoided="true"
+					searchLabel="<spring:message code="Patient.searchBox" htmlEscape="true"/>"
+					showVerboseListing="true"
+					patientId='<request:parameter name="patientId"/>'
+					searchPhrase='<request:parameter name="phrase"/>'
+					showAddPatientLink='false'
+				</div>
+			</div>
 		</div>
-	</div>
-</div>
-<br />
-<a href="" onClick="loadUrlIntoAddRegisterEntryPopup('<spring:message code="register.addPatientToRegister" />','${viewRegisterEntryUrl}');return false;"><spring:message code="register.addPatientToRegister" /></a>
-<br />
-<br/>
-</openmrs:hasPrivilege>
+		<br />
+		<a href="" onClick="loadUrlIntoAddRegisterEntryPopup('<spring:message code="register.addPatientToRegister" />','${viewRegisterEntryUrl}');return false;"><spring:message code="register.addPatientToRegister" /></a>
+		<br />
+		<br/>
+	</openmrs:hasPrivilege>
 </c:if>
 <b class="boxHeader">
 	<spring:message code="register.location.list.title"/>
@@ -125,17 +125,19 @@
 		</table>
 	</div>
 	
-		<input type="hidden" id="registerId" value='<c:out value="${param.registerId}"/>'/>
-		<br style="clear:both;" />
-		<table width="100%">
+	<input type="hidden" id="registerId" value='<c:out value="${param.registerId}"/>'/>
+	<br style="clear:both;" />
+	<table width="100%">
+		<tbody id="searchInfoBar" >			
 			<tr>
 				<td align="left">
-		        	Show <select id="noOfItems"   onChange="loadDataForPagination();"><option value="2">20</option><option value="5">50</option><option value="7">100</option></select> entries
-		        </td>
-		        <td align="right">
-		        	<div id="searchInfoBar"></div>
-		        </td>
-	        </tr>
+			        	Show <select id="noOfItems"   onChange="loadDataForPagination();"><option value="2">20</option><option value="5">50</option><option value="7">100</option></select> entries
+			        </td>
+			        <td align="right">
+			        	<div class="locationBoxNav"></div>
+			        </td>
+		        </tr>
+	        </tbody>
        </table>	
        
         <h3></h3>
@@ -191,27 +193,32 @@ fillDataInTable = function(data){
                 // Iterate through a selection of the content and build an HTML string
                 var rowStyle = "oddRow" ;
                 var startingIndex=(page_index*items_per_page);
-                for(var i = startingIndex;i<max_elem;i++)
-                {
-                	newcontent += '<tr class="'+rowStyle+'">' ;
-					$j.each(requiredDataFromJson, function(key,value){
-					    newcontent += '<td>' + registerEntries[i][value] + '</td>';
-					    
-					})                	
-                	newcontent += '</tr>' ;
-                	if(rowStyle == 'oddRow'){
-                    	rowStyle = 'evenRow';
-                	}else{
-                		rowStyle = 'oddRow';
-                	}
+                if(max_elem > 0){
+	                for(var i = startingIndex; i<max_elem; i++)
+	                {
+	                	newcontent += '<tr class="'+rowStyle+'">' ;
+						$j.each(requiredDataFromJson, function(key,value){
+						    newcontent += '<td>' + registerEntries[i][value] + '</td>';
+						    
+						})                	
+	                	newcontent += '</tr>' ;
+	                	if(rowStyle == 'oddRow'){
+	                    	rowStyle = 'evenRow';
+	                	}else{
+	                		rowStyle = 'oddRow';
+	                	}
+	                }
+                }
+                else{
+                	newcontent += '<tr class="'+rowStyle+'">' + '<td> No records found. </td> </tr>';;
                 }
                 
                 // Replace old content with new content
                 $j('#Searchresult').html(newcontent);
                 if(registerEntries && registerEntries.length >0){
-                	$j('#searchInfoBar').text("Viewing "+(startingIndex+1)+"-"+max_elem +' of '+registerEntries.length);
+                	$j('.locationBoxNav').html("Viewing <b>" + (startingIndex+1)+ "-" + max_elem + "</b> of <b>" + registerEntries.length + "</b>");
                 }else{
-                	$j('#searchInfoBar').text("");
+                	$j('.locationBoxNav').html("");
                 }
                 // Prevent click event propagation
                 return false;
@@ -219,7 +226,7 @@ fillDataInTable = function(data){
             
             var loadDataForPagination = function(){
 				// Create pagination element with options from form
-				var optInit =  {callback: pageSelectCallback,num_display_entries:0,items_per_page:$j('#noOfItems').val(),prev_text:'Previous Results',next_text:'Next Results'};
+				var optInit =  {callback: pageSelectCallback, num_display_entries:0,items_per_page:$j('#noOfItems').val(),prev_text:'Previous Results',next_text:'Next Results',prev_show_always:true,next_show_always:true};				
                 $j("#searchNav").pagination(registerEntries.length, optInit);
                 
             }
